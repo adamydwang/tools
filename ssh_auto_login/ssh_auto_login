@@ -1,0 +1,22 @@
+#!/usr/bin/expect
+set nodes {"10.42.150.45" "10.42.25.42" "10.42.34.72" "10.42.96.119"}
+
+if {$argc != 1} {
+  set len "[llength $nodes]"
+  send "usage: ./login \[0 - [expr $len-1]\]\n"
+  set num 0
+  foreach node $nodes {
+    send "\[$num\] $node\n"
+    set num "[expr $num+1]"
+  }
+  exit
+}
+set user root
+set index "[lindex $argv 0]"
+set ip "[lindex $nodes $index]"
+set password wangyuanda123
+spawn ssh $user@$ip
+expect {
+  "*password*" {send -- $password\r;interact;}
+  "*yes/no*" {send -- yes\r;exp_continue;}
+}
