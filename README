@@ -1,0 +1,4 @@
+1. ssh_auto_login
+   first, should install expect
+   ubuntu: sudo apt-get install expect
+   centos: sudo yum install expect
